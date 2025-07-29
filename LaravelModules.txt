@@ -1,0 +1,225 @@
+{
+  "default_namespace": "Modules",
+  "stubs": {
+    "enabled": false,
+    "path": "vendor/nwidart/laravel-modules/src/Commands/stubs",
+    "files": {
+      "routes/web": "routes/web.php",
+      "routes/api": "routes/api.php",
+      "views/index": "resources/views/index.blade.php",
+      "views/master": "resources/views/layouts/master.blade.php",
+      "scaffold/config": "config/config.php",
+      "composer": "composer.json",
+      "assets/js/app": "resources/assets/js/app.js",
+      "assets/sass/app": "resources/css/app.scss",
+      "vite": "vite.config.js",
+      "package": "package.json"
+    },
+    "replacements": {
+      "routes/web": ["LOWER_NAME","STUDLY_NAME","MODULE_NAMESPACE","CONTROLLER_NAMESPACE"],
+      "routes/api": ["LOWER_NAME","STUDLY_NAME","MODULE_NAMESPACE","STUDLY_NAME","CONTROLLER_NAMESPACE"],
+      "vite": ["LOWER_NAME"],
+      "json": ["LOWER_NAME","STUDLY_NAME","MODULE_NAMESPACE","PROVIDER_NAMESPACE"],
+      "views/index": ["LOWER_NAME"],
+      "views/master": ["LOWER_NAME","STUDLY_NAME"],
+      "scaffold/config": ["STUDLY_NAME"],
+      "composer": ["LOWER_NAME","STUDLY_NAME","VENDOR","AUTHOR_NAME","AUTHOR_EMAIL","MODULE_NAMESPACE","PROVIDER_NAMESPACE"]
+    },
+    "gitkeep": true
+  },
+  "generator": {
+    "channels": { "path": "app/Broadcasting", "generate": false },
+    "command": { "path": "app/Console", "generate": false },
+    "emails": { "path": "app/Emails", "generate": false },
+    "event": { "path": "app/Events", "generate": false },
+    "jobs": { "path": "app/Jobs", "generate": false },
+    "listener": { "path": "app/Listeners", "generate": false },
+    "model": { "path": "app/Models", "generate": false },
+    "notifications": { "path": "app/Notifications", "generate": false },
+    "observer": { "path": "app/Observers", "generate": false },
+    "policies": { "path": "app/Policies", "generate": false },
+    "provider": { "path": "app/Providers", "generate": true },
+    "repository": { "path": "app/Repositories", "generate": false },
+    "resource": { "path": "app/Transformers", "generate": false },
+    "rules": { "path": "app/Rules", "generate": false },
+    "component-class": { "path": "app/View/Components", "generate": false },
+    "controller": { "path": "app/Http/Controllers", "generate": true },
+    "filter": { "path": "app/Http/Middleware", "generate": false },
+    "request": { "path": "app/Http/Requests", "generate": false },
+    "config": { "path": "config", "generate": true },
+    "migration": { "path": "database/migrations", "generate": false },
+    "seeder": { "path": "database/seeders", "generate": false },
+    "factory": { "path": "database/factories", "generate": false },
+    "lang": { "path": "lang", "generate": false },
+    "assets": { "path": "resources/assets", "generate": false },
+    "views": { "path": "resources/views", "generate": true },
+    "component-view": { "path": "resources/views/components", "generate": false },
+    "test-unit": { "path": "tests/Unit", "generate": false },
+    "test-feature": { "path": "tests/Feature", "generate": false }
+  },
+  "paths": {
+    "modules": "Modules",
+    "assets": "public/modules",
+    "migration": "database/migrations"
+  },
+  "scan": {
+    "enabled": false,
+    "paths": ["vendor/*/*"]
+  },
+  "composer": {
+    "vendor": "nwidart",
+    "author": {
+      "name": "Nicolas Widart",
+      "email": "n.widart@gmail.com"
+    }
+  },
+  "cache": {
+    "enabled": false,
+    "driver": "file",
+    "key": "laravel-modules",
+    "lifetime": 60
+  },
+  "register_namespaces": {
+    /* custom namespaces flags (true/false) */
+  },
+  "multiple_config": {
+    /* support for multiple module config files */
+  }
+  {
+  "livewire": {
+    "manual_registration": {
+      "description": "Register Livewire components in module ServiceProvider",
+      "method": "Livewire::component",
+      "parameters": {
+        "alias": "string (module-lower-name::component-name)",
+        "class": "Fully\\Qualified\\ComponentClassName"
+      },
+      "examples": [
+        {
+          "alias": "contacts::add",
+          "class": "Add"
+        },
+        {
+          "alias": "contacts::contact-form",
+          "class": "ContactForm"
+        }
+      ]
+    },
+    "rendering_in_blade": {
+      "description": "How to include Livewire component in blade view",
+      "syntax": "<livewire:module::component />",
+      "examples": [
+        "<livewire:contacts::add />",
+        "<livewire:contacts::contact-form />"
+      ]
+    },
+    "optional_package": {
+      "name": "mhmiton/laravel-modules-livewire",
+      "description": "Adds module-specific `make-livewire` command and auto-registration of livewire components",
+      "installation": "composer require mhmiton/laravel-modules-livewire",
+      "config_publish": "php artisan vendor:publish --provider=\"Mhmiton\\LaravelModulesLivewire\\LaravelModulesLivewireServiceProvider\"",
+      "commands": {
+        "make_livewire": {
+          "signature": "php artisan module:make-livewire <Component> <Module> [--view=] [--force] [--inline] [--custom]",
+          "usage_examples": [
+            "php artisan module:make-livewire Pages/AboutPage Core",
+            "php artisan module:make-livewire pages.about-page Core"
+          ]
+        }
+      },
+      "configuration": {
+        "file": "config/modules-livewire.php",
+        "key": "custom_modules",
+        "structure": {
+          "ModuleName": {
+            "name_lower": "string",
+            "path": "filesystem path",
+            "module_namespace": "string",
+            "namespace": "Livewire namespace (optional)",
+            "view": "view folder base",
+            "views_path": "filesystem views path",
+            "volt_view_namespaces": "array[string]"
+          }
+        },
+        "notes": "Uncomment and fill in each module's config block as needed"
+      }
+    }
+  }
+}
+{
+  "laravel-modules-livewire": {
+    "installation": {
+      "composer": "composer require mhmiton/laravel-modules-livewire",
+      "config_publish": "php artisan vendor:publish --tag=modules-livewire-config"
+    },
+    "make_livewire": {
+      "command": "php artisan module:make-livewire <Component> <Module>",
+      "options": {
+        "--view": "custom view path",
+        "--force": "overwrite existing component",
+        "--inline": "inline component (no separate view)",
+        "--stub": "custom stub directory",
+        "--custom": "apply to custom modules (enabled via config)"
+      },
+      "output": {
+        "class": "Modules/<Module>/app/Livewire/<ComponentClass>.php",
+        "view": "Modules/<Module>/resources/views/livewire/...blade.php",
+        "tag": "<livewire:<module-lower>::<component-kebab> />"
+      }
+    },
+    "volt_support": {
+      "make_volt": {
+        "command": "php artisan module:make-volt <component> <Module>",
+        "options": {
+          "--view": "custom view namespace (registered in config.volt_view_namespaces)",
+          "--class": "create class‑based Volt component",
+          "--functional": "create functional (API style) Volt component",
+          "--force": "overwrite existing view/class",
+          "--stub": "custom stub"
+        },
+        "default_view_namespaces": ["livewire", "pages"],
+        "output": {
+          "view": "Modules/<Module>/resources/views/livewire/volt/<component>.blade.php",
+          "tag": "<livewire:<module-lower>::volt.<component> />"
+        }
+      }
+    },
+    "rendering": {
+      "livewire_tag": "<livewire:{module-lower-name}::component-name-kebab />",
+      "volt_tag": "<livewire:{module-lower-name}::volt.component-name />"
+    },
+    "config": {
+      "file": "config/modules-livewire.php",
+      "root_keys": {
+        "custom_modules": {
+          "ModuleName": {
+            "name_lower": "string",
+            "path": "filesystem path",
+            "module_namespace": "string",
+            "namespace": "Livewire namespace (optional)",
+            "view": "view folder base",
+            "views_path": "filesystem views path",
+            "volt_view_namespaces": ["namespace", ...]
+          }
+        },
+        "namespace": "global Livewire namespace fallback",
+        "view": "global view folder fallback",
+        "views_path": "global resource path fallback",
+        "volt_view_namespaces": ["livewire", "pages"]
+      }
+    },
+    "stubs": {
+      "publish_tag": "modules-livewire-stub",
+      "stub_files": [
+        "livewire.stub",
+        "livewire.inline.stub",
+        "livewire.view.stub",
+        "volt-component.stub",
+        "volt-component-class.stub"
+      ],
+      "custom_stub_directory": "via --stub option"
+    }
+  }
+}
+
+}
