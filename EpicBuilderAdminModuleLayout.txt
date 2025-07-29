@@ -1,0 +1,24 @@
+@php
+    $title = $page->seo_title;
+    $description = $page->seo_text;
+    $id = $page->id;
+@endphp
+
+@extends('website::layouts.master')
+
+@push('header')
+
+
+@endpush
+
+
+@section('content')
+
+
+
+@endsection
+
+@push('footer')
+
+
+@endpush
